@@ -1,0 +1,21 @@
+CREATE DATABASE IF NOT EXISTS `inventory` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci; 
+
+USE `inventory`;
+
+CREATE TABLE `product` ( 
+`pid` INT(5) NOT NULL AUTO_INCREMENT, 
+`name` VARCHAR(30) NOT NULL UNIQUE, 
+`folio` INT(5) NULL , 
+`price` INT(5) NOT NULL DEFAULT '0' , 
+`quantity` INT(5) NOT NULL DEFAULT '0' , 
+PRIMARY KEY (`pid`)
+) ENGINE = InnoDB;
+
+INSERT INTO `product` (`pid`, `name`, `folio`, `price`, `quantity`) VALUES 
+('1', 'American Dairy', '6', '20', '60'),
+('2', 'Atta Saresh', '5', '65', '45'),
+('3', 'Apple jam curl', '7', '20', '350'),
+('4', 'Afza Excellent', '2', '20', '200'),
+('5', 'Anise No:-1', '8', '2300', '200'),
+('6', 'Apple 6004', '8', '300', '200');
+('7', 'Almond No:-1', '8', '345', '200');
