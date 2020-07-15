@@ -12,3 +12,4 @@ http://localhost:3000/home
 
 ### stock
 http://localhost:3000/stock
+&#x2612; Add Product
