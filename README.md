@@ -1,5 +1,9 @@
 # Inventory Management System
 
+### Database
+1. Copy the sql code from sql.txt and paste it inside xampp
+2. change the database connection string from connection.js if you want
+
 ### Home
 http://localhost:3000/home
 
