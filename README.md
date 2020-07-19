@@ -12,10 +12,3 @@ http://localhost:3000/home
 
 ### stock
 http://localhost:3000/stock
-
-&#x2611; Add Product
-
-&#x2611; Delete Product
-
-&#x2612; Edit Product
-

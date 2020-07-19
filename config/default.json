@@ -1,0 +1,14 @@
+{
+    "secretKey": {
+        "jwtPrivateKey" : "SecretKey"
+    },
+    
+    "db_connection_string":{
+        "string" : {
+            "host" : "localhost",
+            "user" : "root",
+            "password" : "",
+            "database" : "inventory"
+        }
+    }
+}
