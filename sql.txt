@@ -17,5 +17,16 @@ INSERT INTO `product` (`pid`, `name`, `folio`, `price`, `quantity`) VALUES
 ('3', 'Apple jam curl', '7', '20', '350'),
 ('4', 'Afza Excellent', '2', '20', '200'),
 ('5', 'Anise No:-1', '8', '2300', '200'),
-('6', 'Apple 6004', '8', '300', '200');
+('6', 'Apple 6004', '8', '300', '200'),
 ('7', 'Almond No:-1', '8', '345', '200');
+
+
+CREATE TABLE `user` ( 
+`username` VARCHAR(18) NOT NULL , 
+`password` CHAR(100) NOT NULL , 
+PRIMARY KEY (`username`)
+) ENGINE = InnoDB;
+
+INSERT INTO `user` (`username`, `password`) VALUES 
+('admin', '$2b$10$2n0jxazbpWqetE6HpJNWY.vbs5nZi.Nvj2x12nNzBhtKvBx.J9uDW');
+

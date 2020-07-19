@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Bootstrap Elegant Account Login Form with Avatar Icon</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="cssFiles/login.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        
+        $('form').on('submit', function(event){
+            event.preventDefault();
+            $('#err').html('');
+            authData = {}
+            authData.username = $('#username').val();
+            authData.password = $('#password').val();
+            console.log(authData);
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/login',
+                contentType: "application/json",
+                data: JSON.stringify(authData),
+                success: function(output, status, xhr){
+                    console.log("successfully recieved token");
+                    document.cookie='x-auth-token='+output; 
+                    window.location.href = '<%=redirectLink%>';
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#err').html(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+</head>
+<body>
+<div class="login-form">    
+    <form action="" method="post">
+		<div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
+        <h4 class="modal-title">Login to Your Account</h4>
+        <div style="color: red;">
+            <p id="err" style="font-size:13px"></p>
+        </div>
+        <div class="form-group">
+            <input id="username" type="text" class="form-control" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <input id="password" type="password" class="form-control" placeholder="Password" required="required">
+        </div>
+        <div class="form-group small clearfix">
+            <label class="form-check-label"><input type="checkbox"> Remember me</label>
+            <a href="#" class="forgot-link">Forgot Password?</a>
+        </div> 
+        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">              
+    </form>			
+    <div class="text-center small">Don't have an account? <a href="/register">Sign up</a></div>
+</div>
+</body>
+</html>
