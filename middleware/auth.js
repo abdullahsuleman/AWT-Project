@@ -2,7 +2,6 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 module.exports = (req,res,next)=>{
-    
     const token = req.cookies['x-auth-token'];
     if(!token){
         global.redirectLink = req.protocol + '://' + req.get('host') + req.originalUrl;

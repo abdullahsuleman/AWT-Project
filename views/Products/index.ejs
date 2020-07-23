@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<title>Stock</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container-xl">
-	<div class="table-responsive">
+	<div class="table-responsive text-nowrap">
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
@@ -33,10 +33,13 @@
 					<tr>
 						<th>ID</th>
 						<th>Name</th>
-						<th>Folio</th>
+						<th>description</th>
 						<th>Price</th>
-						<th>Quantity</th>
-						<th>Actions</th>
+						<th>W1</th>
+						<th>W2</th>
+						<th>W3</th>
+						<th>W4</th>
+						<th class="th-lg">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,33 +47,26 @@
 						<tr> 
 							<td><%=product.pid%></td>
 							<td><%=product.name%></td>
-							<td><%=product.folio%></td>
+							<td><%=product.description%></td>
 							<td><%=product.price%></td>
-							<td><%=product.quantity%></td>
+							<td><%=product.w1%></td>
+							<td><%=product.w2%></td>
+							<td><%=product.w3%></td>
+							<td><%=product.w4%></td>
 							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+								<a href="" class="addstock" data-pid= "<%=product.pid%>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add Stock">add_box</i></a>
+								<a href="" class="edit" data-pid= "<%=product.pid%>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
 								<a href="" class="delete" data-pid= "<%=product.pid%>" data-toggle="modal"  ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 							</td>
 						</tr>
 					<% } %>
 				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
+
 		</div>
 	</div>        
 </div>
-<!-- Edit Modal HTML -->
+<!-- Add Modal HTML -->
 <div id="addProductModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -86,16 +82,12 @@
 						<span class="error"><p style="color:red;" id="add_name_error"></p></span>
 					</div>
 					<div class="form-group">
-						<label>Folio</label>
-						<input type="number" class="form-control" name="folio"></input>
+						<label>description</label>
+						<input type="text" class="form-control" name="description"></input>
 					</div>
 					<div class="form-group">
 						<label>Price</label>
 						<input type="number" class="form-control" name="price">
-					</div>
-					<div class="form-group">
-						<label>Quantity</label>
-						<input type="number" class="form-control" name="quantity">
 					</div>				
 				</div>
 				<div class="modal-footer">
@@ -107,33 +99,33 @@
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editProductModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form id="editProductForm">
+			<form id="editProductForm" action="#">
 				<div class="modal-header">						
 					<h4 class="modal-title">Edit Product</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
+					<div class="form-group">
+						<label>ID</label>
+						<input id="editProductID" type="text" class="form-control" name="pid" disabled>
+					</div>					
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" required>
-						<span class="error"><p id="e_name_error"></p></span>
+						<input id="editproductname" type="text" class="form-control" name="name" required>
+						<span class="error"><p style="color:red;" id="edit_name_error"></p></span>
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
+						<label>description</label>
+						<input id="editProductdescription" type="text" class="form-control" name="description"></input>
 				
 					</div>
 					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
+						<label>Price</label>
+						<input id="editProductPrice" type="number" class="form-control" name="price">
 
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -144,6 +136,47 @@
 		</div>
 	</div>
 </div>
+
+<!-- Add stock Modal HTML -->
+<div id="addStockModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="addStockForm" action="#">
+				<div class="modal-header">						
+					<h4 class="modal-title">Add Stock</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					
+					<div class="form-group">
+						<h5 id="addStockTitle" class="modal-title"></h5>
+					</div>
+					<div class="form-group">
+						<label>W1</label>
+						<input id="addW1" type="number" class="form-control" name="w1" >
+					</div>	
+					<div class="form-group">
+						<label>W2</label>
+						<input id="addW2" type="number" class="form-control" name="w2" >
+					</div>
+					<div class="form-group">
+						<label>W3</label>
+						<input id="addW3" type="number" class="form-control" name="w3" >
+					</div>	
+					<div class="form-group">
+						<label>W4</label>
+						<input id="addW4" type="number" class="form-control" name="w4" >
+					</div>										
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <!-- Delete Modal HTML -->
 <div id="deleteProductModal" class="modal fade">
 	<div class="modal-dialog">
@@ -154,7 +187,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
+					<p>Are you sure you want to delete this Product?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">

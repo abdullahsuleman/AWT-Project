@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const Joi = require('joi');
 const db = require("../connection");
-const _ = require("lodash")
+const _ = require("lodash");
 const bcrypt = require('bcrypt');
 
 const route = express.Router();

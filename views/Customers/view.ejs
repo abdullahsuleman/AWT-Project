@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Customers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="jsFiles/customers.js"></script>
+<link rel="stylesheet" type="text/css" href="cssFiles/customers.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	
+<div class="container-xl">
+	<div class="table-responsive text-nowrap">
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-6">
+						<h2>Manage <b>Customers</b></h2>
+					</div>
+					<div class="col-sm-6">
+						<a href="" class="btn btn-success addCustomer" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New customer</span></a>						
+					</div>
+				</div>
+			</div>
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Contact</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (customer of customers) {%>
+						<tr> 
+							<td><%=customer.cid%></td>
+							<td><%=customer.name%></td>
+							<td><%=customer.contact%></td>
+							<td>
+								<a href="customers/<%=customer.cid%>/orders" class="viewOrders" data-cid= "<%=customer.cid%>" ><i class="material-icons" data-toggle="tooltip" title="Orders">dvr</i></a>
+								<a href="" class="edit" data-cid= "<%=customer.cid%>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+								<a href="" class="delete" data-cid= "<%=customer.cid%>" data-toggle="modal"  ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							</td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Add Modal HTML -->
+<div id="addCustomerModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="addCustomerForm" action="#">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Customer</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Name</label>
+						<input id="addCustomername" type="text" class="form-control" name="name" required>
+						<span class="error"><p style="color:red;" id="add_name_error"></p></span>
+					</div>
+					<div class="form-group">
+						<label>Contact</label>
+						<input id="addCustomercontact" type="text" class="form-control" name="contact"></input>
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editCustomerModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="editCustomerForm" action="#">
+				<div class="modal-header">						
+					<h4 class="modal-title">Edit Customer</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>ID</label>
+						<input id="editCustomerID" type="text" class="form-control" name="cid" disabled>
+					</div>	
+					<div class="form-group">
+						<label>Name</label>
+						<input id="editCustomername" type="text" class="form-control" name="name" required>
+						<span class="error"><p style="color:red;" id="edit_name_error"></p></span>
+					</div>
+					<div class="form-group">
+						<label>Contact</label>
+						<input id="editCustomercontact" type="text" class="form-control" name="contact"></input>
+				
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteCustomerModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="deleteCustomerForm">
+				<div class="modal-header">						
+					<h4 class="modal-title">Delete customer</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input id="deleteCustomer" type="submit" class="btn btn-danger" value="Delete" data-cid="">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -3,22 +3,25 @@ CREATE DATABASE IF NOT EXISTS `inventory` DEFAULT CHARACTER SET latin1 COLLATE l
 USE `inventory`;
 
 CREATE TABLE `product` ( 
-`pid` INT(5) NOT NULL AUTO_INCREMENT, 
+`pid` INT NOT NULL AUTO_INCREMENT, 
 `name` VARCHAR(30) NOT NULL UNIQUE, 
-`folio` INT(5) NULL , 
-`price` INT(5) NOT NULL DEFAULT '0' , 
-`quantity` INT(5) NOT NULL DEFAULT '0' , 
+`description` VARCHAR(30) NULL , 
+`price` INT(8) NOT NULL DEFAULT '0' , 
+`w1` INT(5) NOT NULL DEFAULT '0' , 
+`w2` INT(5) NOT NULL DEFAULT '0' , 
+`w3` INT(5) NOT NULL DEFAULT '0' , 
+`w4` INT(5) NOT NULL DEFAULT '0' ,
 PRIMARY KEY (`pid`)
 ) ENGINE = InnoDB;
 
-INSERT INTO `product` (`pid`, `name`, `folio`, `price`, `quantity`) VALUES 
-('1', 'American Dairy', '6', '20', '60'),
-('2', 'Atta Saresh', '5', '65', '45'),
-('3', 'Apple jam curl', '7', '20', '350'),
-('4', 'Afza Excellent', '2', '20', '200'),
-('5', 'Anise No:-1', '8', '2300', '200'),
-('6', 'Apple 6004', '8', '300', '200'),
-('7', 'Almond No:-1', '8', '345', '200');
+INSERT INTO `product` (`pid`, `name`, `price`, `w1`, `w2`, `w3`, `w4`) VALUES 
+('1', 'American Dairy', '20', '60','32','54','3'),
+('2', 'Atta Saresh', '65', '45','32','54','3'),
+('3', 'Apple jam curl', '20', '350','32','84','3'),
+('4', 'Afza Excellent', '20', '200','42','54','34'),
+('5', 'Anise No:-1', '2300', '200','32','54','11'),
+('6', 'Apple 6004', '300', '200','32','54','3'),
+('7', 'Almond No:-1', '345', '200','32','34','8');
 
 
 CREATE TABLE `user` ( 
@@ -29,4 +32,53 @@ PRIMARY KEY (`username`)
 
 INSERT INTO `user` (`username`, `password`) VALUES 
 ('admin', '$2b$10$2n0jxazbpWqetE6HpJNWY.vbs5nZi.Nvj2x12nNzBhtKvBx.J9uDW');
+
+CREATE TABLE `customer` ( 
+`cid` INT NOT NULL AUTO_INCREMENT, 
+`name` VARCHAR(30) NOT NULL UNIQUE, 
+`contact` VARCHAR(30) NULL , PRIMARY KEY (`cid`)
+) ENGINE = InnoDB;
+
+INSERT INTO `customer` (`cid`, `name`, `contact`) VALUES 
+(NULL, 'Akram Chughtai', '0321-1234567'),
+(NULL, 'AL-Farooq Cotton', '0321-1234567'),
+(NULL, 'Akram Soap', '0321-1234567'),
+(NULL, 'Ahmed Paint House', '0321-1234567'),
+(NULL, 'Asif Mango juice', '0321-1234567'),
+(NULL, 'Ajwa protein Farm', '0321-1234567');
+
+CREATE TABLE `orders` (
+`oid` INT NOT NULL AUTO_INCREMENT,
+`cust_id` INT NOT NULL,
+`balance` INT,
+`total` INT,
+`date` DATE NOT NULL, 
+PRIMARY KEY (`oid`)
+) ENGINE = InnoDB;
+
+INSERT INTO `orders` (`cust_id`, `balance`, `total`, `date`) VALUES 
+( 1, 500, 1000,'2020-07-01'),
+( 1, 2304, 4329, '2020-07-02'),
+( 1, 3090, 5000, '2020-07-04'),
+( 2, 500, 1000, '2020-07-06'),
+( 2, 500, 6500, '2020-07-02'),
+( 2, 5050, 7000, '2020-07-01');
+
+CREATE TABLE `purchases` (
+`purchase_id` INT NOT NULL AUTO_INCREMENT,
+`product_id` INT NOT NULL,
+`order_id` INT NOT NULL,
+`quantity` INT NULL DEFAULT '1',
+PRIMARY KEY (`purchase_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `orders`
+ADD FOREIGN KEY (`cust_id`) REFERENCES customer(`cid`);
+
+ALTER TABLE `purchases`
+ADD FOREIGN KEY (`product_id`) REFERENCES product(`pid`);
+
+ALTER TABLE `purchases`
+ADD FOREIGN KEY (`order_id`) REFERENCES orders(`oid`);
+
 
