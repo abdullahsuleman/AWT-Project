@@ -23,8 +23,13 @@
 					<div class="col-sm-6">
 						<h2>Manage <b>Stock</b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="" class="btn btn-success addProduct" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>						
+					<div class="col-sm-3">
+						<div class="search-box">
+							<input id="myInput" type="text" onkeyup="search()" class="form-control" placeholder="Search&hellip;">
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<a href="" class="btn btn-success addProduct" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
 					</div>
 				</div>
 			</div>
@@ -42,7 +47,7 @@
 						<th class="th-lg">Actions</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="myTable">
 					<% for (product of products) {%>
 						<tr> 
 							<td><%=product.pid%></td>
