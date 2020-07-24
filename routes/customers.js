@@ -89,18 +89,6 @@ route.get('/:id/orders',async (req,res)=>{
     });
 });
 
-/*
-route.get('/:id/orders/invoice',(req,res)=>{
-    let sql = "SELECT * FROM orders where cust_id = ?";
-    db.query(sql,req.params.id,(error,result)=>{
-        if (error){
-            console.log(error.code);
-            return res.status(400).send(error.sqlMessage);
-        } 
-        res.render('Customers/orders',{orders:result});
-    });
-});
-*/
 function validateCustomer(data){
     const schema = {
         name : Joi.string().max(30).required(),

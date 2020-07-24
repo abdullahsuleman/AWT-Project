@@ -29,7 +29,12 @@
 					<div class="col-sm-6">
 						<h2>Manage <b>Customers</b></h2>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-3">
+						<div class="search-box">
+							<input id="myInput" type="text" onkeyup="search()" class="form-control" placeholder="Search&hellip;">
+						</div>
+					</div>
+					<div class="col-sm-3">
 						<a href="" class="btn btn-success addCustomer" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New customer</span></a>						
 					</div>
 				</div>
@@ -43,7 +48,7 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="myTable">
 					<% for (customer of customers) {%>
 						<tr> 
 							<td><%=customer.cid%></td>
