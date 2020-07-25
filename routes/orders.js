@@ -23,16 +23,19 @@ route.post('/',(req,res)=>{
     if (error) return res.status(400).send(error.details[0].message);
 
     // Calculating the total price of entire cart
-    var total = 0
+    var total = 0;
+    let orderTodos = [];
     for (t of req.body) {
         total += Number(t.total);
+        todos += [t.cid];
     }
 
     // SQL queries for mass insertion 
     let sql0 = "INSERT INTO order(cust_id, balance, total) VALUES ?";
     let sql1 = "INSERT INTO purchases(product_id, order_id, quantity) VALUES ?";
     
-    let todos = req.bod
+    
+    
     for (o of req.body) {
         // Add new entry to order table
         var orderInsertion = [o.cid, total, total];
