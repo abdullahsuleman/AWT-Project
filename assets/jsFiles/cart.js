@@ -209,11 +209,10 @@ $("#search").on("keyup", function() {
     console.log(c);
     var a = JSON.parse(c);
     var total = 0;
-    var temp = [];
     for (o of a) {
       total += Number(o.total);
     };
-    console.log(temp);
+    console.log(a);
   
   
     event.preventDefault();
