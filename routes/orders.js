@@ -19,62 +19,53 @@ route.get('/',(req,res)=>{
 });
 
 route.post('/',(req,res)=>{
-    var {error , value} = validateOrder(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    //var {error , value} = validateOrder(req.body);
+    //if (error) return res.status(400).send(error.details[0].message);
 
-    // Calculating the total price of entire cart
+    //Calculating the total price of entire cart
     var total = 0
     for (t of req.body) {
         total += Number(t.total);
     }
 
     // SQL queries for mass insertion 
-    let sql0 = "INSERT INTO order(cust_id, balance, total) VALUES ?";
-    let sql1 = "INSERT INTO purchases(product_id, order_id, quantity) VALUES ?";
-    
-    let todos = req.bod
-    for (o of req.body) {
-        // Add new entry to order table
-        var orderInsertion = [o.cid, total, total];
-        var order_id;
-        db.query(sql0, orderInsertion, (error,result)=>{
-            if(error){
-                //console.log("Error while adding new order", error.stack);
-                console.log(error.code);
-                console.log(error.sqlMessage);
-                return res.status(400).send(String(error.errno));
-            }
-            order_id = result.insertId; // Fetch order_id before adding new purchase
-        });
+    let sql0 = "INSERT INTO orders SET ?";
+    let sql1 = "INSERT INTO purchases SET ?";
 
-        // Add new entry to purchase table
-        var purchasesInsertion = [o.id, order_id, o.count];
-        db.query(sql1, purchasesInsertion, (error,result)=>{
-            if(error){
-                //console.log("Error while adding new purchase", error.stack);
-                console.log(error.code);
-                console.log(error.sqlMessage);
-                return res.status(400).send(String(error.errno));
-            }
-        });
-
-        // Update the stock value for the relevant product from the selected warehouse
-        var sql3 = "UPDATE product SET "+o.wid+" = "+o.wid+"-"+o.count+" WHERE pid = "+o.id+"";
-        db.query(sql3, (error,result)=>{
-            if(error){
-                //console.log("Error while adding new purchase", error.stack);
-                console.log(error.code);
-                console.log(error.sqlMessage);
-                return res.status(400).send(String(error.errno));
-            }
-        });
-    };
+    var order = {cust_id:req.body[0].cid, balance:total, total:total}
+    var order_id;
+    db.query(sql0,order,(error,result)=>{
+        if(error){
+            console.log(error.code);
+            console.log(error.sqlMessage);
+            return res.status(400).send(String(error.errno));
+        }
+        order_id = result.insertId; // Fetch order_id before adding new purchase
+        console.log("order post received");
+        for (o of req.body) {
+            // Add new entry to purchase table
+            var purchasesInsertion = {product_id:o.id, order_id, quantity:o.count};
+            db.query(sql1, purchasesInsertion, (error,result)=>{
+                if(error){
+                    console.log(error.code);
+                    console.log(error.sqlMessage);
+                    return res.status(400).send(String(error.errno));
+                }
+            });
     
-    
-
-    console.log("order post received")
-    return res.status(200);
-    
+            // Update the stock value for the relevant product from the selected warehouse
+            var sql3 = "UPDATE product SET "+o.wid+" = "+o.wid+"-"+o.count+" WHERE pid = "+o.id+"";
+            db.query(sql3, (error,result)=>{
+                if(error){
+                    //console.log("Error while adding new purchase", error.stack);
+                    console.log(error.code);
+                    console.log(error.sqlMessage);
+                    return res.status(400).send(String(error.errno));
+                }
+            });
+        };
+        return res.status(200);
+    }); 
 });
 
 route.get('/:id/new',async (req,res)=>{
