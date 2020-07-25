@@ -7,7 +7,7 @@ const util = require('util');
 const route = express.Router();
 
 route.get('/',(req,res)=>{
-    db.query("SELECT * FROM PRODUCT", (error,result) => {
+    db.query("SELECT * FROM product", (error,result) => {
         if (error){
             console.log("error in query" + error.stack);
             return res.status(404).send("Resource not found");
@@ -29,7 +29,7 @@ route.post('/',(req,res)=>{
         }
         /*
         console.log(result.insertId);
-        db.query('SELECT * FROM PRODUCT WHERE PID = ?',result.insertId,(error,result)=>{
+        db.query('SELECT * FROM product WHERE PID = ?',result.insertId,(error,result)=>{
             if (error) return res.status(400).send("Please reload the page to see changes");
             console.log("Sucessfuly added new product");
             res.send(result[0]);
@@ -67,7 +67,7 @@ route.put('/',(req,res)=>{
         } 
         console.log(result.insertId);
         // Getting the updated Row from Database
-        db.query('SELECT * FROM PRODUCT WHERE PID = ?',req.body.pid,(error,result)=>{
+        db.query('SELECT * FROM product WHERE PID = ?',req.body.pid,(error,result)=>{
             if (error) return res.status(400).send("Please reload the page to see changes");
             console.log("Sucessfully added new product");
             res.send(result[0]);
@@ -89,7 +89,7 @@ route.put('/:id',(req,res)=>{
             return res.status(400).send(String(error.errno));
         }
         // Getting the updated Row from Database
-        db.query('SELECT * FROM PRODUCT WHERE PID = ?',req.params.id,(error,result)=>{
+        db.query('SELECT * FROM product WHERE PID = ?',req.params.id,(error,result)=>{
             if (error) return res.status(400).send("Please reload the page to see changes");
             console.log("Sucessfully added new product");
             res.send(result[0]);

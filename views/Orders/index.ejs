@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="cssFiles/orders.css">
+    <script src="jsFiles/orders.js"></script>
+  </head>
+
+  <div class="container">
+    <div class="row">
+      <h2>Select Customer For New Order</h2>
+      <hr />
+    </div>
+
+    <div class="row-fluid">
+      <select id="customerSelection" class="selectpicker" data-show-subtext="true" data-live-search="true" data-width="100%">
+        <% for (customer of customers) {%>
+            <option value="<%=customer.cid%>" data-subtext="<%=customer.contact%>"><%=customer.name%></option>
+        <% } %>
+      </select>
+
+      <div class="row-fluid">
+          <a href="#" id="button" class="btn btn-success btn-lg btn-block" role="button" aria-pressed="true">Next</a>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+</html>

@@ -189,36 +189,44 @@ table.table .avatar {
 	box-shadow: none;
 	background: #ddd;
 }
-/* Modal styles */
-.modal .modal-dialog {
-	max-width: 400px;
+	
+.search-box input {
+    height: 34px;
+    border-radius: 20px;
+    padding-left: 35px;
+    border-color: #ddd;
+    box-shadow: none;
 }
-.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-	padding: 20px 30px;
+.search-box i {
+    color: #a0a5b1;
+    position: absolute;
+    font-size: 19px;
+    top: 8px;
+    left: 25px;
 }
-.modal .modal-content {
-	border-radius: 3px;
-	font-size: 14px;
+.container {
+	margin-top: 50px;
 }
-.modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
+.row-fluid {
+	margin-top: 10px;
 }
-.modal .modal-title {
-	display: inline-block;
+/* Cart CSS */
+.show-cart li {
+	display: flex;
 }
-.modal .form-control {
-	border-radius: 2px;
-	box-shadow: none;
-	border-color: #dddddd;
+.card {
+	margin-bottom: 20px;
 }
-.modal textarea.form-control {
-	resize: vertical;
+.card-img-top {
+	width: 200px;
+	height: 200px;
+	align-self: center;
 }
-.modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-}	
-.modal form label {
-	font-weight: normal;
-}	
+.cart-control {
+	padding: 10px;
+	background-color: #fff;
+	text-align: center;
+}
+.fa-shopping-cart {
+	color: #fff;
+}

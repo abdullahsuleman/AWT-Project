@@ -5,10 +5,10 @@
     
     "db_connection_string":{
         "string" : {
-            "host" : "localhost",
-            "user" : "root",
-            "password" : "",
-            "database" : "inventory",
+            "host" : "160.153.131.204",
+            "user" : "awt",
+            "password" : "%&_g(bDeLtmX",
+            "database" : "awt",
             "dateStrings": true
         }
     }
