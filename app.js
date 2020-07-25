@@ -5,11 +5,13 @@ const path = require("path");
 const db = require("./connection");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
+// const morgon = require('morgan');
 
 const customer = require("./routes/customers");
 const products = require("./routes/products");
 const register = require("./routes/register");
 const login = require("./routes/login");
+const createOrders = require("./routes/orders");
 
 const auth = require("./middleware/auth");
 
@@ -22,11 +24,13 @@ app.use(Express.json());
 app.use(cors());
 app.use(expressLayouts);
 app.use(cookieParser());
+// app.use(morgon('common'));
 
 app.use('/stock',auth,products);
 app.use('/customers',auth,customer);
 app.use('/register',register);
 app.use('/login',login);
+app.use('/createOrder',auth,createOrders);
 
 app.set('views', path.join(__dirname + '/views'));
 app.set('view engine','ejs');
