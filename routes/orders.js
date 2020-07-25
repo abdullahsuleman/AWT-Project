@@ -69,23 +69,26 @@ route.post('/',(req,res)=>{
 
   //  Update the stock value for the relevant product from the selected warehouse
 
-//   for (o of todos) {
-//     var sql3 = "UPDATE product SET "+o.wid+" = "+o.wid+"-"+o.count+" WHERE pid = "+o.id+"";
-//     db.query(sql3, (error,result)=>{
-//         if(error){
-//             //console.log("Error while adding new purchase", error.stack);
-//             console.log(error.code);
-//             console.log(error.sqlMessage);
-//             return res.status(400).send(String(error.errno));
-//         }
-//     });
-// };
+  for (o of todos) {
+    var sql3 = "UPDATE product SET "+o.wid+" = "+o.wid+"-"+o.count+" WHERE pid = "+o.id+"";
+    db.query(sql3, (error,result)=>{
+        if(error){
+            //console.log("Error while adding new purchase", error.stack);
+            console.log(error.code);
+            console.log(error.sqlMessage);
+            return res.status(400).send(String(error.errno));
+        }
 
-    
-    
 
-    console.log("order post received")
-    return res.status(200);
+    });
+};
+    console.log("order post received");
+    var response = {
+        status  : 200,
+        success : 'New added!'
+    }
+    res.end(JSON.stringify(response));
+    //return res.status(200);
     
 });
 
