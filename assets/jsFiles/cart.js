@@ -212,7 +212,7 @@ $("#search").on("keyup", function() {
     for (o of a) {
       total += Number(o.total);
     };
-    console.log(total);
+    console.log(a);
   
   
     event.preventDefault();
@@ -228,8 +228,6 @@ $("#search").on("keyup", function() {
             $('#alert-message').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> New order added successfully.</div>');
             console.log("New Order Added sucessfully");
             shoppingCart.clearCart();
-            displayCart();
-  
         },
         error: function (xhr, ajaxOptions, thrownError) {
             if (xhr.responseText != '1062'){
