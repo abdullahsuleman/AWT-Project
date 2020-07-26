@@ -40,8 +40,9 @@ route.post('/',(req,res)=>{
   
     // calling the function
     orderss(sql0,[orderInsertion],function(orderid){ // takes orderid
+        purchasesInsertion = []
         for (o of todos) {
-            purchasesInsertion = [[o.id, orderid, o.count]]; 
+            purchasesInsertion.push([o.id, orderid, o.count]);
         };
         db.query(sql1, [purchasesInsertion],(error,result)=>{
         if(error){
