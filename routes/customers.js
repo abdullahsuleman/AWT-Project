@@ -89,6 +89,8 @@ route.get('/:id/orders',async (req,res)=>{
     });
 });
 
+
+
 function validateCustomer(data){
     const schema = {
         name : Joi.string().max(30).required(),

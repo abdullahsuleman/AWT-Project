@@ -1,14 +1,12 @@
 const express = require('express');
-const bodyParser = require("body-parser");
-const Joi = require('joi');
 const db = require("../connection");
-const _ = require('lodash');
+const _ = require("lodash");
+const Joi = require('joi');
 const util = require('util');
 
 const route = express.Router();
-route.use(bodyParser.json());
 
-route.get('/',(req,res)=>{
+route.get('/createOrder',(req,res)=>{
     db.query("SELECT * FROM customer", (error,result) => {
         if (error){
             console.log("error in query" + error.stack);
@@ -18,7 +16,7 @@ route.get('/',(req,res)=>{
     });
 });
 
-route.post('/',(req,res)=>{
+route.post('/createOrder',(req,res)=>{
 
     //var {error , value} = validateOrder(req.body);
     //if (error) return res.status(400).send(error.details[0].message);
@@ -29,18 +27,16 @@ route.post('/',(req,res)=>{
         total += Number(t.total);
     }
     // SQL queries for mass insertion 
-    let sql0 = "INSERT INTO `orders` ( `cust_id`, `balance`, `total`, `date`) VALUES ?";
+    let sql0 = "INSERT INTO `orders` ( `cust_id`, `balance`, `total`) VALUES ?";
     let sql1 = "INSERT INTO `purchases`(`product_id`, `order_id`, `quantity`) VALUES ?";
     
-    let todos = req.body
+    let todos = req.body;
     var orderInsertion=[]; 
     var purchasesInsertion =[];
-    //  var order_id; - not using 
-    for (o of todos) { orderInsertion = [[o.cid, total, total, '2020/5/25']]; }; // Add new entry to order table
-  
+
+    orderInsertion = [[req.body[0].cid, total, total]]; // Add new entry to order table
     // calling the function
     orderss(sql0,[orderInsertion],function(orderid){ // takes orderid
-        purchasesInsertion = []
         for (o of todos) {
             purchasesInsertion.push([o.id, orderid, o.count]);
         };
@@ -93,7 +89,7 @@ route.post('/',(req,res)=>{
     
 });
 
-route.get('/:id/new',async (req,res)=>{
+route.get('/createOrder/:id/new',async (req,res)=>{
     const query = util.promisify(db.query).bind(db);
     let sql2 = "SELECT name FROM customer where cid = ?";
     let sql1 = "SELECT * FROM product";
@@ -119,17 +115,28 @@ route.get('/:id/new',async (req,res)=>{
 });
 
 
-function validateOrder(data){
-    const schema = {
-        count : Joi.number().max(99999).required(),
-        id : Joi.number().max(99999).required(),
-        name : Joi.string().max(30).required(),
-        price : Joi.string().max(99999).required(),
-        total : Joi.number().max(99999).required(),
-	    wid : Joi.number().max(99999).required(),
-        cid : Joi.number().max(99999).required()
+route.get('/:oid/invoice',async (req,res)=>{
+    const query = util.promisify(db.query).bind(db);
+    var sql1 = 'Select purchases.order_id, purchases.quantity, product.name, product.price '+
+                ' from purchases join product on purchases.product_id = product.pid where order_id = ?';
+    var sql2 = 'Select orders.oid, orders.total, customer.name, orders.date, customer.contact'+ 
+                ' from orders join customer on orders.cust_id = customer.cid where oid = ?';
+    var purchase,order;
+    try{
+        purchase = await query(sql1,req.params.oid);
+        order = await query(sql2,req.params.oid);
+
+        return res.render('Invoice/invoice',{
+            data:
+            {
+                products: purchase,
+                order: order[0]
+            }
+        });
+    } catch (error){
+        res.send("Can't Fetch the data, Please try again later");
     }
-    return Joi.validate(data,schema);
-}
+    
+});
 
 module.exports = route;

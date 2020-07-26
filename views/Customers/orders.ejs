@@ -52,7 +52,7 @@
                             <td><%=order.balance%></td>
                             <td><%=order.total%></td>
 							<td>
-								<a href="" class="viewInvoice" data-cid= "<%=order.cid%>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Invoice">account_balance_wallet</i></a>
+								<a href="/orders/<%=order.oid%>/invoice" class="viewInvoice" data-cid= "<%=order.cid%>"><i class="material-icons" data-toggle="tooltip" title="Invoice">account_balance_wallet</i></a>
 								<a href="" class="edit" data-cid= "<%=order.cid%>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
 								<a href="" class="delete" data-cid= "<%=order.cid%>" data-toggle="modal"  ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 							</td>
