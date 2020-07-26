@@ -76,7 +76,7 @@ $(document).ready(()=>{
 						'<td>'+Customer.name+'</td>'+
 						'<td>'+Customer.contact+'</td>'+
                         '<td>'+
-                            '<a href="" class="addOrder" data-toggle="modal" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Orders">dvr</i></a>'+
+                            '<a href="/orders/<%=order.oid%>/invoice" target="_blank" class="addOrder" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Orders">dvr</i></a>'+
 							'<a href="" class="edit" data-toggle="modal" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>'+
 							'<a href="" class="delete" data-toggle="modal" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>'+
 						'</td>'+
@@ -127,7 +127,7 @@ $(document).ready(()=>{
 						'<td>'+Customer.name+'</td>'+
 						'<td>'+Customer.contact+'</td>'+
                         '<td>'+
-                            '<a href="" class="addOrder" data-toggle="modal" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Orders">dvr</i></a>'+
+                            '<a href="/orders/<%=order.oid%>/invoice" target="_blank" class="addOrder" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Orders">dvr</i></a>'+
 							'<a href="" class="edit" data-toggle="modal" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>'+
 							'<a href="" class="delete" data-toggle="modal" data-cid='+Customer.cid+'><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>'+
 						'</td>'
