@@ -114,6 +114,18 @@ route.get('/createOrder/:id/new',async (req,res)=>{
     });
 });
 
+route.delete('/:id',(req,res) =>{
+    db.query('DELETE from orders where oid = ?',req.params.id,(err,result)=>{
+        if(err){
+            console.log(err.sqlMessage);
+            return res.status(400).send("Can't delete Order");
+        }
+        console.log('Order deleted');
+        console.log('deleted ' + result.affectedRows + ' rows');
+        return res.send("Record deleted successfully");
+    });
+});
+
 
 route.get('/:oid/invoice',async (req,res)=>{
     const query = util.promisify(db.query).bind(db);
@@ -125,7 +137,9 @@ route.get('/:oid/invoice',async (req,res)=>{
     try{
         purchase = await query(sql1,req.params.oid);
         order = await query(sql2,req.params.oid);
-
+        var date = order[0].date.split(' ')[0].split('-');
+        date = new Date(date[0], date[1] - 1, date[2]); 
+        order[0].date = date.toDateString();
         return res.render('Invoice/invoice',{
             data:
             {
@@ -134,9 +148,20 @@ route.get('/:oid/invoice',async (req,res)=>{
             }
         });
     } catch (error){
-        res.send("Can't Fetch the data, Please try again later");
+        res.status(400).send("Can't Fetch the data, Please try again later");
     }
     
+});
+
+route.put('/',(req,res)=>{
+    var amount = Number(req.body.amount);
+    var balance = Number(req.body.balance);
+    if((balance-amount)<0) return res.status(400).send("Debit amount must be less than Balance");
+    var sql = 'update orders set balance = '+(balance-amount)+' where oid = ?';
+    db.query(sql,req.body.oid,(error,result)=>{
+        if(error) return res.status(400).send("Can't update Account. Please try again later");
+        res.send(String(balance-amount));
+    });
 });
 
 module.exports = route;
