@@ -11,7 +11,7 @@ const customer = require("./routes/customers");
 const products = require("./routes/products");
 const register = require("./routes/register");
 const login = require("./routes/login");
-const createOrders = require("./routes/orders");
+const orders = require("./routes/orders");
 
 const auth = require("./middleware/auth");
 
@@ -30,7 +30,7 @@ app.use('/stock',auth,products);
 app.use('/customers',auth,customer);
 app.use('/register',register);
 app.use('/login',login);
-app.use('/createOrder',auth,createOrders);
+app.use('/orders',auth,orders);
 
 app.set('views', path.join(__dirname + '/views'));
 app.set('view engine','ejs');
