@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="/cssFiles/invoice.css">
+    <style type="text/css">
+        @media print
+        {
+        body * { visibility: hidden; }
+        .container * { visibility: visible; }
+        .container { position: absolute; top: 40px; left: 30px; }
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $('#printInvoice').click(function(){    
+                window.print();
+        });
+        });
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar hidden-print">
+            <div class="text-right">
+                <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            </div>
+            <hr>
+        </div>
+        <header>
+            <div class="row">
+                <div class="col company-details">
+                    <h1 class="name">
+                        <a>
+                        M.Saeed Rangwalay
+                        </a>
+                    </h1>
+                    <div>12- Rail Bazar, Okara</div>
+                    <div><b>Tel:</b> 044-2520487,2525090</div>
+                    <div><b>Mob:</b> 0321-6523405 / 0322-7000231</div>
+                </div>
+            </div>
+        </header>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="invoice-title pb-5">
+                    <h3>Invoice</h3><h3 class="pull-right">Order # <%=data.order.oid%></h3>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                        <strong>To:</strong><br>
+                        <%=data.order.name%><br>
+                        <%=data.order.contact%><br>
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                            <strong>Order Date:</strong><br>
+                            <%=data.order.date%><br><br>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td><strong>Item</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
+                                        <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-right"><strong>Totals</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for (row of data.products) {%>
+                                    <tr>
+                                        <td><%= row.name%></td>
+                                        <td class="text-center">Rs <%= row.price%></td>
+                                        <td class="text-center"><%= row.quantity%></td>
+                                        <td class="text-right">Rs <%= row.price*row.quantity%></td>
+                                    </tr>
+                                    <% } %>
+                                    <tr>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                                        <td class="thick-line text-right">Rs <%=data.order.total%></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Total</strong></td>
+                                        <td class="no-line text-right">Rs <%=data.order.total%></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
