@@ -7,16 +7,64 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .menu {
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-left: 50px;
+      padding-bottom: 10px;
+    }
+    .menu-bottom {
+      padding-right: 50px;
+      padding-bottom: 50px;
+      padding-left: 50px;
+      padding-top: 10px;
+    }
+    .masthead {
+      height: 50vh;
+      min-height: 200px;
+      background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
 <body>
 
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1 class="">HOME</h1>
+        <p class="lead">Inventory Management System</p>
+      </div>
+    </div>
+  </div>
+</header>
+
 <div class="container">
-  <h1 class="pb-5 pt-5">Home</h1>
-  <div class="list-group">
-    <a href="/stock" class="list-group-item">Stock</a>
-    <a href="/customers" class="list-group-item">Customers</a>
-    <a href="/createOrder" class="list-group-item">Create Order</a>
-    <a href="#" class="list-group-item">Orders</a>
+  <div class="row">
+    <div class="col menu" align="center">
+      <a href="/stock" class="btn btn-sq btn-success btn-block">
+        <i class="fa fa-user fa-5x"></i><br/>
+        Stock
+    </a>
+    </div>
+    <div class="col menu" align="center">
+      <a href="/customers" class="btn btn-sq btn-warning btn-block">
+        <i class="fa fa-user fa-5x"></i><br/>
+        Customers
+    </a>
+    </div>
+    <div class="w-100"></div>
+    <div class="col menu-bottom" align="center">
+      <a href="/orders" class="btn btn-sq btn-primary btn-block">
+        <i class="fa fa-user fa-5x"></i><br/>
+        Orders
+    </a>
+    </div>
+
   </div>
 </div>
 

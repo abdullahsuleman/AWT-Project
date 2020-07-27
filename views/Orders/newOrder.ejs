@@ -17,9 +17,9 @@
 <link rel="stylesheet" type="text/css" href="/cssFiles/orders.css">
 <body>
 
-<div class="row cart-control">
-    <div class="col">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-count"></span>)</button>&nbsp;&nbsp;&nbsp;<button class="clear-cart btn btn-danger">Clear Cart</button></div>
+<div class="d-flex flex-row-reverse cart-control">
+    <div class="p-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cart"><i class="fa fa-cart-plus"></i> Cart (<span class="total-count"></span>)</button>&nbsp;&nbsp;&nbsp;<button class="clear-cart btn btn-danger"><i class="fa fa-trash"></i> Clear Cart</button></div>
 </div>
 
 <div class="container" id="alert-messaage">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary order-button">Add To Order</button>
+                <button type="button" class="btn btn-success order-button">Add To Order</button>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2>New Order of <b><%=customer%> </b></h2></div>
+                        <div class="col-sm-8"><h2>New Order of <b><%=customer%> </b><a href="customers/if orderid exist/orders" class="viewOrders float-right white" data-oid= "" ><i class="fa fa-television" aria-hidden="true"></i></a></h2></div>
                         <div class="col-sm-4">
                             <div class="search-box">
                                 <i class="material-icons">&#xE8B6;</i>

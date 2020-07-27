@@ -3,7 +3,7 @@ $(document).ready(function(){
 
 	$('#button').click(function() {
 		var customer = $( "#customerSelection" ).val();
-		console.log("/"+customer+"/createOrder/")
-		window.location.href = "createOrder/"+customer+"/new";
+		console.log("/"+customer+"/orders/")
+		window.location.href = "orders/"+customer+"/newOrder";
 	});
 });

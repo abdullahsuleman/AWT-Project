@@ -24,6 +24,7 @@ route.post('/',(req,res)=>{
     //if (error) return res.status(400).send(error.details[0].message);
 
     //Calculating the total price of entire cart
+    var prevorderid;
     var total = 0
     for (t of req.body) {
         total += Number(t.total);
@@ -36,7 +37,7 @@ route.post('/',(req,res)=>{
     var orderInsertion=[]; 
     var purchasesInsertion =[];
     //  var order_id; - not using 
-    for (o of todos) { orderInsertion = [[o.cid, total, total, '2020/5/25']]; }; // Add new entry to order table
+    for (o of todos) { orderInsertion = [[o.cid, total, total, '2020/5/25']]; }; // Add new entry to order table //remove hardcoded date if db timestamp is enabled
   
     // calling the function
     orderss(sql0,[orderInsertion],function(orderid){ // takes orderid
@@ -51,6 +52,7 @@ route.post('/',(req,res)=>{
             return res.status(400).send(String(error.errno));
         }
         });
+        prevorderid = orderid;
     });
 
       // Funtion to add order with a callback - that allows us to add purchase 
@@ -70,7 +72,8 @@ route.post('/',(req,res)=>{
   //  Update the stock value for the relevant product from the selected warehouse
 
   for (o of todos) {
-    var sql3 = "UPDATE product SET "+o.wid+" = "+o.wid+"-"+o.count+" WHERE pid = "+o.id+"";
+    //   "UPDATE product SET "+o.wid+" = "+o.wid+"-"+o.count+" WHERE pid = "+o.id+"";
+    var sql3 = "UPDATE `product` SET "+o.wid+"= IF(("+o.wid+"-"+o.count+")>=0, "+o.wid+"-"+o.count+", "+o.wid+"='error' ) WHERE `pid`="+o.id+"";
     db.query(sql3, (error,result)=>{
         if(error){
             //console.log("Error while adding new purchase", error.stack);
@@ -85,14 +88,15 @@ route.post('/',(req,res)=>{
     console.log("order post received");
     var response = {
         status  : 200,
-        success : 'New added!'
+        success : 'New added!',
+        order_id: prevorderid
     }
     res.end(JSON.stringify(response));
     //return res.status(200);
     
 });
 
-route.get('/:id/new',async (req,res)=>{
+route.get('/:id/newOrder',async (req,res)=>{
     const query = util.promisify(db.query).bind(db);
     let sql2 = "SELECT name FROM customer where cid = ?";
     let sql1 = "SELECT * FROM product";
@@ -110,7 +114,7 @@ route.get('/:id/new',async (req,res)=>{
         console.log(err.stack);
         cust_name="";
     }
-    res.render('Orders/new',{
+    res.render('Orders/newOrder',{
         customer_id:req.params.id,
         customer:cust_name[0].name,
         products: products

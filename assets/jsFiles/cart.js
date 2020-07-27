@@ -160,9 +160,9 @@ $("#search").on("keyup", function() {
       output += "<tr>" +
       "<td>" + cartArray[i].name + "</td>" +
       "<td>(Rs." + cartArray[i].price + " per item)</td>" +
-      "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>" +
+      "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-success' data-id=" + cartArray[i].id + ">-</button>" +
       "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>" +
-      "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>" +
+      "<button class='plus-item btn btn-success input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>" +
       "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>" +
       " = " +
       "<td>Rs." + cartArray[i].total + "</td>" +
@@ -223,17 +223,19 @@ $("#search").on("keyup", function() {
         data: JSON.stringify(shoppingCart.listCart()),
         contentType: 'application/json',
         success: function(){
-            $('#cart').modal('hide');
-            $('.modal-backdrop').hide();
             $('#alert-message').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> New order added successfully.</div>');
             console.log("New Order Added sucessfully");
             shoppingCart.clearCart();
+            displayCart();
+            $('#cart').modal('hide');
+            $('.modal-backdrop').hide();
+            location.reload();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             if (xhr.responseText != '1062'){
                 alert(xhr.responseText);
             }
-            $('.alert-message').html('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Failure!</strong> Connection Lost.</div>');
+            $('.alert-message').html('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Failure!</strong> Connection Lost or Not Enough Stock In The Selected Warehouse.</div>');
         }
     });
   });
