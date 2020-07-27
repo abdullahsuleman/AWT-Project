@@ -72,22 +72,25 @@ route.get('/:id/orders',async (req,res)=>{
     var orders,cust_name;
     try{
         orders = await query(sql1,req.params.id);
+        cust_name = await query(sql2,req.params.id);
+
+        for (o of orders){
+            var date = o.date.split(' ')[0].split('-');
+            date = new Date(date[0], date[1] - 1, date[2]); 
+            o.date = date.toDateString();
+        }
+
+        res.render('Customers/orders',{
+            orders:orders,
+            customer:cust_name[0].name
+        });
     } catch(err){
         console.log(err.stack);
         return res.status(400).send("can't load orders");
     }
-    try{
-        cust_name = await query(sql2,req.params.id);
-    } catch(err){
-        console.log(err.stack);
-        cust_name="";
-    }
-
-    res.render('Customers/orders',{
-        orders:orders,
-        customer:cust_name[0].name
-    });
 });
+
+
 
 function validateCustomer(data){
     const schema = {
