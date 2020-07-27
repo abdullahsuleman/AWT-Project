@@ -219,7 +219,7 @@ $("#search").on("keyup", function() {
     
     $.ajax({
         type: "POST",
-        url: 'http://localhost:3000/createOrder/',
+        url: 'http://localhost:3000/orders/',
         data: JSON.stringify(shoppingCart.listCart()),
         contentType: 'application/json',
         success: function(){
